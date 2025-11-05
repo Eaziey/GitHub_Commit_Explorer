@@ -1,6 +1,11 @@
 {
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.16",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "axios": "^1.13.2",
     "pinia": "^3.0.4",
+    "tailwindcss": "^4.1.16",
+    "vite": "^7.2.0",
     "vue-router": "^4.6.3"
   }
 }
