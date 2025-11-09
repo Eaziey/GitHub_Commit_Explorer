@@ -2,6 +2,7 @@ import {defineStore} from 'pinia'
 import type { Repository } from '../interfaces/repository';
 import type { Commit } from '../interfaces/commit';
 import axios from 'axios';
+import router from '../router';
 
 export const useGithubStore = defineStore('github', {
   state: () => ({
@@ -10,48 +11,95 @@ export const useGithubStore = defineStore('github', {
     error: null as string | null,
     commits: [] as Commit[],
     selectedCommit: null as Commit | null,
-    favourites: [] as Commit[]
+    favourites: [] as Commit[],
+    currentUsername: '',
+    totalPages: 1
   }),
 
   actions: {
+
     async fetchRepositories(username: string) {
       this.loading = true
       this.error = null
-      
+      //store current Users username for future use
+      this.currentUsername = username;
+
+      /*
+        Get users favourites from localstorage. 
+        To make sure if you switch a user and come back you will still have the currentUsers favourites
+      */
+      this.loadFavourites(username);
+      console.log(this.favourites);
       try {
+
         const response = await axios.get<Repository[]>(`https://api.github.com/users/${username}/repos`)
         this.repositories = response.data
-      } catch (err: any) {
-        this.error = err.response?.data?.message || 'Failed to fetch repositories.'
+      } catch (error) {
+
+        this.handleError("repositories", error);
+
       } finally {
         this.loading = false
       }
     },
-    async fetchCommits(username: string, repo:string ){
+    async fetchCommits(username: string, repo:string, page: number = 1 ){
       this.loading = true
       this.error = null
-      this.commits = []
+
       try{
-        const response = await axios.get<Commit[]>(`https://api.github.com/repos/${username}/${repo}/commits`)
-        this.commits = response.data;
+
+        //Api call with per_page and page params for pagination
+        const response = await axios.get<Commit[]>(`https://api.github.com/repos/${username}/${repo}/commits`, {
+          params: {
+            per_page: 10,
+            page: page
+          }
+        });
+
+        //map each commit to it's repo
+        const commitsWithRepo = response.data.map(commit => ({
+          ...commit,
+          repo_Name: repo
+        }));
+
+
+        this.commits = [...this.commits, ...commitsWithRepo];
+        console.log(this.commits);
+        
       }
-      catch(err: any){
-        this.error = err.response?.data?.message || 'Failed to fetch commits'
+      catch(error){
+        if(axios.isAxiosError(error)) {
+          if (error.response?.status === 403) {
+            router.push('/forbidden');
+          } else {
+            console.error('Axios error while fetching commits:', error.message);
+            this.error = error.response?.status + error.message || "Error fetching commits."
+          }
+        } else {
+          console.error('An unexpected error occurred while fetching commits', error);
+          this.error =`Error fetching commits.`;
+        }
       }
       finally {
         this.loading = false
       }
       
     },
-    async fetchCommitDetails(username: string, repo: string, sha: string) {
+    async fetchCommitDetails(repo: string | null, sha: string) {
       this.loading = true
       this.error = null
 
+      console.log("username: ", this.currentUsername,"repo: ", repo, "sha: ", sha);
+
       try {
-        const response = await axios.get(`https://api.github.com/repos/${username}/${repo}/commits/${sha}`)
+        const response = await axios.get(`https://api.github.com/repos/${this.currentUsername}/${repo}/commits/${sha}`)
+        
         this.selectedCommit = response.data
-      } catch (err: any) {
-        this.error = err.response?.data?.message || 'Failed to fetch commit details.'
+        console.log(response.data);
+      } catch (error) {
+        
+        this.handleError("commit details", error);
+        
       } finally {
         this.loading = false
       }
@@ -63,18 +111,87 @@ export const useGithubStore = defineStore('github', {
       this.error = null
       this.loading = false
       this.favourites = []
-    },
+      this.currentUsername = ''
 
+    },
+    
+    async getTotalCommitPages(username: string, repo: string): Promise<number> {
+      try {
+        const response = await axios.get(`https://api.github.com/repos/${username}/${repo}/commits`, {
+          params: {
+            per_page: 1,
+            page: 1
+          }
+        });
+      
+        const linkHeader = response.headers['link'];
+        if (!linkHeader) return 1;
+      
+        const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
+        const totalCommits = match ? parseInt(match[1], 10) : 1;
+        return Math.ceil(totalCommits / 10);
+      } catch (error) {
+
+        if(axios.isAxiosError(error)) {
+          if (error.response?.status === 403) {
+            router.push('/forbidden');
+          } else {
+            console.error('Axios error while fetching total commit pages:', error.message);
+            this.error = error.response?.status + error.message || "Error fetching total commit pages"
+          }
+        } else {
+          console.error('Error fetching total commit pages:', error);
+          this.error =`Error fetching total commit pages: ${error}`;
+        }
+
+        return 1;
+      }
+    },
     addFavourite(commit: Commit) {
 
       if (!this.favourites.find(fav => fav.sha === commit.sha)) {
         this.favourites.push(commit)
+        this.saveFavourites(this.currentUsername);
       }
     },
     removeFavourite(sha: string) {
 
       this.favourites = this.favourites.filter(fav => fav.sha !== sha)
+      this.saveFavourites(this.currentUsername);
+    },
+
+    saveFavourites(username:string) {
+      localStorage.setItem(`favourites_${username}`, JSON.stringify(this.favourites));
+    },
+
+    loadFavourites(username: string) {
+      
+      const data = localStorage.getItem(`favourites_${username}`);
+      this.favourites = data ? JSON.parse(data) : [];
+    }, 
+
+    handleError(name:string, error: any){
+
+      //check if error is an AxiosError and handle ir
+        if(axios.isAxiosError(error)) {
+          //Take to 403 forbidden page if Rate Limit reached
+          if (error.response?.status === 403) {
+            router.push('/forbidden');
+          } else {
+            console.error(`Axios error while fetching ${name}:`, error.message);
+            
+            this.error = axios.isAxiosError(error)
+              ? `${error.response?.status ?? ''} ${error.message}`
+              : `Error fetching ${name}.`;
+
+            //this.error = error.response?.status + error.message || `Error fetching ${name}.`
+          }
+        } else {
+          console.error('Unexpected error:', error);
+          this.error =`Error fetching ${name}.`;
+        }
     }
+
 
 
 

@@ -1,6 +1,7 @@
 
 export interface Commit {
   sha: string
+  repo_Name: string
   node_id: string
   commit: {
     author: User
