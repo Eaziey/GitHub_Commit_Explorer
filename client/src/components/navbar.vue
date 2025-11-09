@@ -9,7 +9,7 @@ const githubStore = useGithubStore();
 <template>
   <nav class="fixed top-0 z-50 w-full bg-white shadow-md flex items-center justify-between px-6 py-3 h-16">
     <router-link to="/" class="flex items-center space-x-2 hover:opacity-80">
-      <img :src="logo" alt="Logo" class="h-8 w-8" />
+      <img :src="logo" alt="Logo" class="h-20 w-auto" />
       <span class="text-xl font-bold text-gray-800">GitSplore</span>
     </router-link>
 

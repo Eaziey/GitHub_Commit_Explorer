@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useGithubStore } from '../store/github';
-
+import { HeartIcon as HeartOutline, HeartIcon as HeartSolid } from '@heroicons/vue/24/solid'
 
 interface Props {
   message: string
@@ -27,53 +27,43 @@ function isFavourite(sha: string): boolean {
 </script>
 
 <template>
-    <div class="flex flex-col rounded w-60 h-80 break-all">
-        <div class="min-h-4/5 rounded border shadow-lg bg-white">
-            <div id="header" class="flex mb-1 p-2">
-                <div class="w-2/3 flex justify-start items-center pl-4">
-                    <h1 class="text-blue-800 text-sm font-semibold wrap-break-words">{{ props.repo }}</h1>
-                </div>
-                <div class="flex justify-end w-1/3">
-                    <button 
-                        class="bg-red-300 rounded p-2 w-10 text-red-500"
-                        v-if="isFavourite(props.sha)"
-                        @click="emit('removeFromFavourites')"
-                    >
-                        @
-                    </button>
-                    <button 
-                        class="bg-gray-100 rounded p-2 w-10 text-gray-500"
-                        v-else
-                        @click="emit('addToFavourite')"
-                    >
-                        @
-                    </button>
-                </div>
-                
-            </div>
-            <div class="flex flex-wrap flex-col justify-center h-full px-3">
-                 <div class="h-2/3 overflow-auto">
-                    <h1 class="italic wrap-break-words mb-5">{{ props.name }}</h1>
-                    <p class="text-gray-800 dark:text-gray-200 text-sm font-semibold mb-2 overflow-hidden text-ellipsis break-all">
-                        {{ props.message }} 
-                    </p>
-                 </div>
-                <div class="h-1/3">
-                    <p class="text-gray-800 dark:text-gray-200 font-light text-sm mb-2 break-all">
-                        {{ formattedDate }}
-                    </p>
-                </div>
-            </div>
-            
-        </div>
-        <div class="h-1/5 flex flex-col justify-center items-center">
-            <button 
-                @click="emit('viewCommitDetails',props.repo, props.sha)"
-                class="border bg-sky-500 w-20 rounded p-2"
-                
-            >
-                details
-            </button>
-        </div>
+  <div class="flex flex-col w-72 h-80 bg-white rounded shadow-md hover:shadow-2xl transition-shadow duration-300 overflow-hidden border border-gray-200">
+    <!-- Header -->
+    <div class="flex justify-between items-center px-5 py-4 bg-gray-50 border-b border-gray-200">
+      <h1 class="text-gray-500 text-lg font-semibold truncate">{{ props.repo }}</h1>
+      <button
+        v-if="isFavourite(props.sha)"
+        @click="emit('removeFromFavourites')"
+        class="bg-red-50 text-red-500 rounded-full p-2 hover:bg-red-100 hover:cursor-pointer transition"
+      >
+        <HeartSolid class="w-5 h-5" />
+      </button>
+      <button
+        v-else
+        @click="emit('addToFavourite')"
+        class="bg-gray-50 text-gray-500 rounded-full p-2 hover:bg-gray-100 hover:cursor-pointer transition"
+      >
+        <HeartOutline class="w-5 h-5" />
+      </button>
     </div>
+
+    <!-- Body -->
+    <div class="flex flex-col justify-between bg-gray-50 mx-5 mt-4 px-4 py-3 rounded grow shadow-inner">
+      <div class="overflow-auto">
+        <h2 class="italic text-blue-800 text-sm font-medium mb-2">{{ props.name }}</h2>
+        <p class="text-gray-700 text-sm leading-relaxed">{{ props.message }}</p>
+      </div>
+      <p class="text-gray-400 text-xs mt-3">{{ formattedDate }}</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-center items-center py-4">
+      <button
+        @click="emit('viewCommitDetails', props.repo, props.sha)"
+        class="bg-sky-500 hover:bg-sky-600 w-40 text-white font-semibold rounded py-2 px-4 hover:cursor-pointer shadow-md transition"
+      >
+        View Details
+      </button>
+    </div>
+  </div>
 </template>
