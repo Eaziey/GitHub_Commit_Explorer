@@ -93,6 +93,8 @@ describe('Github Store', () => {
 
   });
 
+  
+  //fetchCommits test
   describe('fetchCommits', () => {
     it('fetches commits successfully and maps repo name', async () => {
       const mockCommits = [
@@ -200,7 +202,7 @@ describe('Github Store', () => {
     });
 
   });
-
+   //fetchCommitDetails test
   describe('fetchCommitDetails', () => {
     it('fetches commit details successfully', async () => {
       const mockCommitDetails = {
@@ -310,6 +312,7 @@ describe('Github Store', () => {
     });
   });
 
+  //Reset store test
   describe('reset', () => {
     it('resets the store to its initial state', () => {
       const store = useGithubStore();
@@ -337,6 +340,7 @@ describe('Github Store', () => {
     });
   });
 
+  //getTotalCommitPages test
   describe('getTotalCommitPages', () => {
     let store: ReturnType<typeof useGithubStore>;
 
@@ -393,6 +397,7 @@ describe('Github Store', () => {
     });
   });
 
+  //addFavourite test
   describe('addFavourite', () => {
     let store: ReturnType<typeof useGithubStore>;
 
@@ -443,6 +448,7 @@ describe('Github Store', () => {
     });
   });
 
+  //removeFavourite test
   describe('removeFavourite', () => {
     let store: ReturnType<typeof useGithubStore>;
 
@@ -493,6 +499,7 @@ describe('Github Store', () => {
     });
   });
   
+  //saveFavourites test
   describe('saveFavourites', () => {
     let store: ReturnType<typeof useGithubStore>;
 
@@ -538,6 +545,7 @@ describe('Github Store', () => {
     });
   });
 
+  //loadFavourites test
   describe('loadFavourites', () => {
     let store: ReturnType<typeof useGithubStore>;
 
@@ -585,6 +593,7 @@ describe('Github Store', () => {
     });
   });
 
+  //handleError test
   describe('handleError', () => {
     let store: ReturnType<typeof useGithubStore>;
 

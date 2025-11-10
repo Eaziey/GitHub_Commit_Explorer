@@ -22,8 +22,8 @@
           </div>  
       </div>
       
-      <div v-if="githubStore.commits.length" class="flex flex-col text-center py-5 px-30 bg-gray-50">
-        <div class="flex mt-5 justify-between items-center px-15">
+      <div class="flex flex-col text-center py-5 px-30 bg-gray-50">
+        <div class="relative flex justify-center mt-5 items-center px-15">
 
           <div class="flex gap-6 mx-auto bg-white shadow-md px-5 py-2 rounded">
             <button
@@ -46,7 +46,7 @@
             </button>
           </div>
 
-          <div class="flex justify-end">
+          <div class="absolute right-0 mr-5">
             <select v-model="sortOrder" class="border rounded px-4 py-2 bg-gray-50 text-[#074b60]">
               <option value="latest" class="rounded px-3 py-2 bg-gray-50">Latest First</option>
               <option value="oldest" class="rounded px-3 py-2 bg-gray-50">Oldest First</option>
@@ -54,9 +54,9 @@
           </div>
         </div>
 
-
-        <div class="text-center flex flex-col justify-center mt-5 ">
-          <div class="container rounded-2xl py-5">
+        <!--Commits section-->
+        <div v-if="activeTab === 'commits'" class="text-center flex flex-col justify-center mt-5 ">
+          <div v-if="githubStore.commits.length" class="container bg-gray-50 py-7 px-5 rounded-lg shadow-inner">
     
             <div class="flex flex-wrap gap-3 w-full justify-start px-5">
               <div v-for="commit in sortedCommits" :key="commit.sha" class="">
@@ -72,7 +72,7 @@
                 />
               </div>
             </div>
-
+            <!--pagination-->
             <div class="mt-6 flex justify-center gap-2" v-if="activeTab === 'commits' && githubStore.commits.length">
               <!-- First Page -->
               <button
@@ -112,9 +112,47 @@
               </button>
             </div>
           </div>
+          <div v-else class="flex flex-col items-center justify-center py-16 bg-gray-50 rounded-lg shadow-inner">
+            <!-- Icon -->
+            <CodeBracketIcon class="w-16 h-16 text-sky-400 mb-4" />
+        
+            <h2 class="text-xl font-bold text-gray-700">No commits for you here</h2>
+            <p class="text-gray-500 mt-2">Please click on a repository to view commits.</p>
+          
+          </div>
         </div>
-      </div>
+          <!--Favourites section-->
+        <div v-if="activeTab === 'favourites'" class="text-center flex flex-col justify-center mt-5 ">
+          <div v-if="githubStore.favourites.length" class="container bg-gray-50 py-7 px-5 rounded-lg shadow-inner">
+    
+            <div class="flex flex-wrap gap-3 w-full justify-start px-5">
+              <div v-for="commit in sortedCommits" :key="commit.sha" class="">
+                <CommitCard 
+                  :message="commit.commit.message" 
+                  :name="commit.commit.author.name" 
+                  :date="commit.commit.author.date"
+                  :sha="commit.sha"
+                  :repo="commit.repo_Name"
+                  @viewCommitDetails="fetchCommitDetails"
+                  @addToFavourite="githubStore.addFavourite(commit)"
+                  @removeFromFavourites = "githubStore.removeFavourite(commit.sha)"
+                />
+              </div>
+              
+            </div>
+          </div>
+          <div v-else class="flex flex-col items-center justify-center py-16 bg-gray-50 rounded-lg shadow-inner">
+                <div class="bg-red-50 text-red-500 rounded-full p-2 mb-2">
+                  <HeartIcon class="w-14 h-14" />
+                </div>
+               
+                <h2 class="text-xl font-bold text-gray-700">No favourites yet</h2>
+                <p class="text-gray-500 mt-2">Add commits to your favourites to see them here.</p>
+              </div>
+        </div>
 
+      </div>
+     
       <div v-if="githubStore.selectedCommit">
         <commitDetailModal :commit="githubStore.selectedCommit" @close="githubStore.selectedCommit = null" />
       </div>
@@ -132,6 +170,9 @@ import commitDetailModal from '../components/commitDetailModal.vue';
 import CommitCard from '../components/commitCard.vue';
 
 import { ref, computed } from 'vue'
+import { CodeBracketIcon, HeartIcon } from '@heroicons/vue/24/outline';
+
+
 
 const selectedRepoName = ref<string>("")
 const activeTab = ref<'commits' | 'favourites'>('commits')
@@ -140,7 +181,7 @@ const sortOrder = ref<'latest' | 'oldest'> ('latest')
 const currentPage = ref(1)
 
 
-
+//check for the amount of visible page numbers on pagination
 const visiblePages = computed(() => {
   const start = Math.max(currentPage.value - 2, 1);
   const end = Math.min(currentPage.value + 2, githubStore.totalPages);
@@ -149,14 +190,10 @@ const visiblePages = computed(() => {
 
 
 
-const props = defineProps<{ username: string }>();
-
-
 const route = useRoute()
 const githubStore = useGithubStore()
 
-console.log("r", githubStore.favourites);
-
+//sorting commits on date
 const sortedCommits = computed(() => {
   const commits = activeTab.value === "commits" ? githubStore.commits : githubStore.favourites;
 
@@ -167,6 +204,7 @@ const sortedCommits = computed(() => {
     return sortOrder.value === 'latest'? dateB - dateA : dateA - dateB;
   })
 })
+
 
 onMounted(() => {
   const username = route.params.username as string;
@@ -189,10 +227,6 @@ function fetchCommitsForPage(page: number) {
   currentPage.value = page;
   githubStore.commits = [];
   githubStore.fetchCommits(username, selectedRepoName.value!, page);
-}
-
-function isFavourite(sha: string): boolean {
-  return githubStore.favourites.some(fav => fav.sha === sha)
 }
 
 function fetchCommitDetails(repo: string, sha: string){ 
