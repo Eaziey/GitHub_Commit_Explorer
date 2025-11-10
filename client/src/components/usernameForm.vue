@@ -18,7 +18,7 @@
                 Username
             </label>
             <input 
-              class="shadow border-2 rounded w-full py-2 px-3 text-[#074b60] focus:outline-white focus:shadow-outline " 
+              class="shadow border-2 rounded w-full py-2 px-3 bg-gray-50 text-[#074b60] focus:outline-sky-100 focus:shadow-outline " 
               id="username" 
               type="text" 
               placeholder="Username"
