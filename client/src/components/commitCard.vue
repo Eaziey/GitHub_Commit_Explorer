@@ -30,7 +30,7 @@ function isFavourite(sha: string): boolean {
   <div class="flex flex-col w-72 h-80 bg-white rounded shadow-md hover:shadow-2xl transition-shadow duration-300 overflow-hidden border border-gray-200">
     <!-- Header -->
     <div class="flex justify-between items-center px-5 py-4 bg-gray-50 border-b border-gray-200">
-      <h1 class="text-gray-500 text-lg font-semibold truncate">{{ props.repo }}</h1>
+      <h1 class="text-gray-500 text-lg font-semibold truncate mr-2">{{ props.repo }}</h1>
       <button
         v-if="isFavourite(props.sha)"
         @click="emit('removeFromFavourites')"
@@ -49,7 +49,7 @@ function isFavourite(sha: string): boolean {
 
     <!-- Body -->
     <div class="flex flex-col justify-between bg-gray-50 mx-5 mt-4 px-4 py-3 rounded grow shadow-inner">
-      <div class="overflow-auto">
+      <div class="overflow-y-auto">
         <h2 class="italic text-blue-800 text-sm font-medium mb-2">{{ props.name }}</h2>
         <p class="text-gray-700 text-sm leading-relaxed">{{ props.message }}</p>
       </div>
