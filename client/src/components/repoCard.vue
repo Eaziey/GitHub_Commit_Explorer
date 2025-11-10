@@ -2,7 +2,7 @@
 
 interface Props {
   name: string
-  description: string 
+  description: string | null
 }
 
 const props = defineProps<Props>()
