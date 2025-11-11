@@ -13,7 +13,7 @@
              </p>
         </div>
 
-        <div class="mb-10 w-full">
+        <div class="mb-10 w-full px-15">
             <label class="block text-white text-sm font-bold mb-2" for="username">
                 Username
             </label>
@@ -33,7 +33,7 @@
 
         </div>
         
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center px-15">
             <button 
                 @click.prevent="handleSubmit" 
                 :class="[
