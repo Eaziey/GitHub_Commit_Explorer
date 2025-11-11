@@ -48,10 +48,10 @@ function isFavourite(sha: string): boolean {
     </div>
 
     <!-- Body -->
-    <div class="flex flex-col justify-between bg-gray-50 mx-5 mt-4 px-4 py-3 rounded grow shadow-inner">
-      <div class="overflow-y-auto">
-        <h2 class="italic text-blue-800 text-sm font-medium mb-2">{{ props.name }}</h2>
-        <p class="text-gray-700 text-sm leading-relaxed">{{ props.message }}</p>
+    <div class="flex flex-col justify-between bg-gray-50 mx-5 mt-4 px-4 py-3 h-60 rounded ">
+      <div class="overflow-none h-28">
+        <h2 class=" text-blue-800 text-sm font-medium mb-2">{{ props.name }}</h2>
+        <p class="text-gray-700 text-sm line-clamp-4">{{ props.message }}</p>
       </div>
       <p class="text-gray-400 text-xs mt-3">{{ formattedDate }}</p>
     </div>
