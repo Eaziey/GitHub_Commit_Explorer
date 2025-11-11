@@ -29,13 +29,14 @@ export const useGithubStore = defineStore('github', {
         To make sure if you switch a user and come back you will still have the currentUsers favourites
       */
       this.loadFavourites(username);
-      console.log(this.favourites);
+  
       try {
 
         const response = await axios.get<Repository[]>(`https://api.github.com/users/${username}/repos`)
         this.repositories = response.data
-      } catch (error) {
 
+      } catch (error) {
+        console.log(error);
         this.handleError("repositories", error);
 
       } finally {
@@ -62,9 +63,8 @@ export const useGithubStore = defineStore('github', {
           repo_Name: repo
         }));
 
-
+        //combine previous commits with new page commits
         this.commits = [...this.commits, ...commitsWithRepo];
-        console.log(this.commits);
         
       }
       catch(error){
@@ -89,13 +89,11 @@ export const useGithubStore = defineStore('github', {
       this.loading = true
       this.error = null
 
-      console.log("username: ", this.currentUsername,"repo: ", repo, "sha: ", sha);
-
       try {
         const response = await axios.get(`https://api.github.com/repos/${this.currentUsername}/${repo}/commits/${sha}`)
         
         this.selectedCommit = response.data
-        console.log(response.data);
+
       } catch (error) {
         
         this.handleError("commit details", error);
@@ -117,6 +115,8 @@ export const useGithubStore = defineStore('github', {
     
     async getTotalCommitPages(username: string, repo: string): Promise<number> {
       try {
+        // Make an API request to GitHub to get commits for the repo.
+        // This is a trick to get the pagination info from the response headers.
         const response = await axios.get(`https://api.github.com/repos/${username}/${repo}/commits`, {
           params: {
             per_page: 1,
@@ -124,11 +124,15 @@ export const useGithubStore = defineStore('github', {
           }
         });
       
+        //Get link header
         const linkHeader = response.headers['link'];
         if (!linkHeader) return 1;
-      
+        
+        // Get the last page number from the link header using regex.(1 commit = 1 page)
         const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
         const totalCommits = match ? parseInt(match[1], 10) : 1;
+
+        // Divide total commits by 10 commits per page to get the number of pages
         return Math.ceil(totalCommits / 10);
       } catch (error) {
 
@@ -148,7 +152,6 @@ export const useGithubStore = defineStore('github', {
       }
     },
     addFavourite(commit: Commit) {
-
       if (!this.favourites.find(fav => fav.sha === commit.sha)) {
         this.favourites.push(commit)
         this.saveFavourites(this.currentUsername);

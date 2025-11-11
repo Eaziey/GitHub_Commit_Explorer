@@ -73,7 +73,6 @@ describe('Github Store', () => {
       await store.fetchRepositories('test');
     
       expect(router.push).toHaveBeenCalledWith('/forbidden');
-      //expect(store.error).toBe('403 Rate limit exceeded');
       expect(store.loading).toBe(false);
     });
 
@@ -184,7 +183,6 @@ describe('Github Store', () => {
       await store.fetchCommits('testuser', 'testrepo', 1);
     
       expect(router.push).toHaveBeenCalledWith('/forbidden');
-      //expect(store.error).toBe('403 Rate limit exceeded');
       expect(store.loading).toBe(false);
     });
 
@@ -292,7 +290,6 @@ describe('Github Store', () => {
       await store.fetchCommitDetails('testrepo', 'abc123');
 
       expect(router.push).toHaveBeenCalledWith('/forbidden');
-      //expect(store.error).toBe('Error fetching commit details.');
       expect(store.loading).toBe(false);
     });
   
@@ -444,7 +441,7 @@ describe('Github Store', () => {
       store.favourites = [mockCommit];
       store.addFavourite(mockCommit);
       expect(store.favourites.length).toBe(1);
-      expect(store.saveFavourites).not.toHaveBeenCalled(); // no need to save again
+      expect(store.saveFavourites).not.toHaveBeenCalled();
     });
   });
 
