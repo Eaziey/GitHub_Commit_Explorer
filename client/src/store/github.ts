@@ -52,7 +52,7 @@ export const useGithubStore = defineStore('github', {
         //Api call with per_page and page params for pagination
         const response = await axios.get<Commit[]>(`https://api.github.com/repos/${username}/${repo}/commits`, {
           params: {
-            per_page: 10,
+            per_page: 8,
             page: page
           }
         });
@@ -130,10 +130,10 @@ export const useGithubStore = defineStore('github', {
         
         // Get the last page number from the link header using regex.(1 commit = 1 page)
         const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
-        const totalCommits = match ? parseInt(match[1], 10) : 1;
+        const totalCommits = match ? parseInt(match[1], 8) : 1;
 
         // Divide total commits by 10 commits per page to get the number of pages
-        return Math.ceil(totalCommits / 10);
+        return Math.ceil(totalCommits / 8);
       } catch (error) {
 
         if(axios.isAxiosError(error)) {
