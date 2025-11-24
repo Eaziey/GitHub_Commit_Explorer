@@ -5,9 +5,6 @@
         </div>
         <div class="w-[68%]">
         <div id="header" class="mb-5 text-center w-full">
-            <h5 class="mb-2 text-white text-2xl font-semibold">
-                WELCOME TO GITSPLORE
-            </h5>
              <p class="text-gray-600 leading-normal font-light">
                 Please enter your username to access your repositories
              </p>
@@ -18,7 +15,7 @@
                 Username
             </label>
             <input 
-              class="shadow border-2 rounded w-full py-2 px-3 bg-gray-50 text-[#074b60] focus:outline-sky-100 focus:shadow-outline " 
+              class="shadow border-2 rounded-lg w-full py-2 px-3 bg-gray-50 text-[#074b60] focus:outline-sky-100 focus:shadow-outline " 
               id="username" 
               type="text" 
               placeholder="Username"
@@ -37,7 +34,7 @@
             <button 
                 @click.prevent="handleSubmit" 
                 :class="[
-                    'border-2 border-sky-500 bg-[#074b60] hover:border-white hover:bg-transparent hover:cursor-pointer text-white font-semibold py-2 px-4 rounded w-full',
+                    'border-2 border-sky-500 bg-[#074b60] hover:border-white hover:bg-transparent hover:cursor-pointer text-white font-semibold py-2 px-4 rounded-lg w-full',
                     !isValidUsername ? 'invisible' : ''
                   ]"
                 type="button"

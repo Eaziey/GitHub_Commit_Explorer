@@ -1,7 +1,7 @@
 <template>
-  <div class="px-4 pb-4 pt-16 bg-gray-100 h-screen">
-    <h2 class="text-xl font-bold mb-4 mt-10">Differences for {{ filename }}</h2>
-    <div class="bg-gray-900 text-white rounded p-4 overflow-auto max-h-[80vh]">
+  <div class="px-50 pb-4 pt-16 h-screen">
+    <h1 class="my-15 text-3xl font-bold text-center text-sky-500">Differences for {{ filename }}</h1>
+    <div class="bg-[#0f0f0f] border border-gray-500 text-white rounded-xl p-4 overflow-auto max-h-[70vh]">
       <pre class="whitespace-pre-wrap wrap-break-words">
         <div v-for="(line, index) in lines" :key="index" :class="getLineClass(line)">
           {{ line }}

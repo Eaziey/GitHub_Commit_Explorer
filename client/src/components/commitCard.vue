@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useGithubStore } from '../store/github';
-import { HeartIcon as HeartOutline, HeartIcon as HeartSolid } from '@heroicons/vue/24/solid'
+import { HeartIcon as HeartSolid, ArrowUpRightIcon, CodeBracketIcon } from '@heroicons/vue/24/solid'
+import {HeartIcon as HeartOutline} from '@heroicons/vue/24/outline'
 
 interface Props {
   message: string
@@ -27,42 +28,46 @@ function isFavourite(sha: string): boolean {
 </script>
 
 <template>
-  <div class="flex flex-col w-72 h-80 bg-white rounded shadow-md hover:shadow-2xl transition-shadow duration-300 overflow-hidden border border-gray-200">
-    <!-- Header -->
-    <div class="flex justify-between items-center px-5 py-4 bg-gray-50 border-b border-gray-200">
-      <h1 class="text-gray-500 text-lg font-semibold truncate mr-2">{{ props.repo }}</h1>
-      <button
-        v-if="isFavourite(props.sha)"
-        @click="emit('removeFromFavourites')"
-        class="bg-red-50 text-red-500 rounded-full p-2 hover:bg-red-100 hover:cursor-pointer transition"
-      >
-        <HeartSolid class="w-5 h-5" />
-      </button>
-      <button
-        v-else
-        @click="emit('addToFavourite')"
-        class="bg-gray-50 text-gray-500 rounded-full p-2 hover:bg-gray-100 hover:cursor-pointer transition"
-      >
-        <HeartOutline class="w-5 h-5" />
-      </button>
-    </div>
+  <div class="bg-[#0f0f0f] border border-gray-500 flex flex-col w-67 h-80 rounded-xl transition-transform duration-300 overflow-hidden hover:scale-102 p-2">
 
-    <!-- Body -->
-    <div class="flex flex-col justify-between bg-gray-50 mx-5 mt-4 px-4 py-3 h-60 rounded ">
-      <div class="overflow-none h-28">
-        <h2 class=" text-blue-800 text-sm font-medium mb-2">{{ props.name }}</h2>
-        <p class="text-gray-700 text-sm line-clamp-4">{{ props.message }}</p>
+    <div class="h-full rounded-xl px-4 text-xs">
+      <!-- Header -->
+      <div class="flex justify-between items-center">
+        <CodeBracketIcon class="w-7 h-7 text-sky-500" />
+        <button
+          v-if="isFavourite(props.sha)"
+          @click="emit('removeFromFavourites')"
+          class=" text-red-500 rounded-full p-2 hover:cursor-pointer transition"
+        >
+          <HeartSolid class="w-5 h-5" />
+        </button>
+        <button
+          v-else
+          @click="emit('addToFavourite')"
+          class=" text-gray-200 p-2 hover:text-red-500 items-center rounded-full hover:cursor-pointer transition"
+        >
+          <HeartOutline class="w-5 h-5" />
+        </button>
       </div>
-      <p class="text-gray-400 text-xs mt-3">{{ formattedDate }}</p>
+
+      <div class=" flex flex-col justify-start items-start h-45 mt-7">
+        <h5 class="text-lg text-white font-semibold truncate">{{ props.repo }}</h5>
+        <h2 class=" text-sm text-sky-600 font-medium mb-2 w-full text-left"> {{ props.name }}</h2>
+        <p class="text-white text-sm line-clamp-2 mt-4 w-full text-left">{{ props.message }}</p>
+      </div>
+      
+     
     </div>
 
     <!-- Footer -->
-    <div class="flex justify-center items-center py-4">
+    <div class="flex justify-between items-center px-4 pb-2">
+      
+      <p class="text-gray-100 text-xs w-full text-left">{{ formattedDate }}</p>
       <button
         @click="emit('viewCommitDetails', props.repo, props.sha)"
-        class="bg-sky-500 hover:bg-sky-600 w-40 text-white font-semibold rounded py-2 px-4 hover:cursor-pointer shadow-md transition"
+        class="items-center bg-sky-500 text-white rounded-full p-2 hover:bg-[#1f1f1f] hover:cursor-pointer transition"
       >
-        View Details
+        <ArrowUpRightIcon class="w-4 h-4"/>
       </button>
     </div>
   </div>

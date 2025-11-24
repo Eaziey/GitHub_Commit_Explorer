@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FolderIcon } from '@heroicons/vue/24/outline';
 
 interface Props {
   name: string
@@ -16,15 +17,14 @@ const emit = defineEmits<{
 <template>
     <div 
       @click="emit('viewCommits', props.name)"
-      class="relative flex flex-col my-2 border border-sky-300 bg-sky-400 rounded w-100 min-h-30 shadow hover:shadow-lg transition-shadow duration-300 overflow-hidden hover:cursor-pointer">      
-      <div class="pt-3 px-1">
-        <h5 class="mb-2 text-[#074b60] text-lg font-semibold">
+      class="relative p-6 bg-[#1f1f1f] rounded-xl w-75 lg:w-80 h-45 transition-transform duration-300 overflow-hidden hover:cursor-pointer hover:scale-102">
+
+      <div class=" px-1">
+        <FolderIcon class="w-7 h-7 text-sky-500"/>
+        <h5 class="mb-2 text-white text-lg font-semibold">
           {{props.name}}
         </h5>
-      </div>
-
-      <div class="px-4">
-        <p class="text-white leading-normal font-light text-sm">
+        <p class="text-gray-100 leading-normal line-clamp-3 font-light text-sm">
           {{ props.description || 'No description available.' }}
         </p>
       </div>

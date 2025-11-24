@@ -1,5 +1,5 @@
 <template>
-    <div class=" text-[#074b60] w-full pt-16">
+    <div class=" w-full pt-16 ">
 
       <div v-if="githubStore.loading" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
         <div class="px-6 py-4 rounded shadow-lg text-lg font-semibold bg-blue-100 text-blue-800">
@@ -13,26 +13,55 @@
         </div>
       </div>
 
-      <div v-if="!githubStore.loading && !githubStore.error" class="flex flex-col text-center justify-center py-10 bg-sky-200">
-        <div class="px-30">
-          <h1 class="mb-2  text-2xl font-bold">Your Repos</h1>
-          <div class="flex flex-wrap gap-3 w-full justify-center px-5">
-            <div v-for="repo in githubStore.repositories" :key="repo.id">
-              <RepoCard :name="repo.name" :description="repo.description" @viewCommits="handleViewCommits" />
-            </div>
-          </div> 
-        </div> 
-      </div>
-      
-      <div class="flex flex-col text-center py-5 bg-gray-50">
-        <div class="relative flex justify-center mt-5 items-center px-30">
+      <!--Welcome Section-->
+      <div v-if="!githubStore.loading && !githubStore.error" class="pt-4 px-50 flex items-center justify-between h-2/5 w-full">
+        
+        <div class="w-1/2 max-w-xl pt-10 pb-10">
+          
+          <h1 class="text-6xl font-extrabold bg-linear-to-r from-sky-400 to-purple-500 bg-clip-text text-transparent">
+            Welcome to GitSplore
+          </h1>
 
-          <div class="flex gap-6 mx-auto bg-white shadow-md px-5 py-2 rounded">
+          <p class="text-xl leading-relaxed text-gray-300">
+            Your personal GitHub explorer!  
+          </p>
+
+          <ul class="mt-10 text-lg space-y-4 text-white">
+            <li><FolderIcon class="w-7 h-7 text-sky-500"/> <span class="font-semibold">Browse your repositories</span> in a sleek interface.</li>
+            <li><CodeBracketIcon class="w-7 h-7 text-sky-500" /> <span class="font-semibold">Dive into commits</span> for any repo with ease.</li>
+            <li><ClipboardDocumentIcon class="w-7 h-7 text-sky-500" /> <span class="font-semibold">Inspect commit details & files</span> like a pro.</li>
+          </ul>
+
+          <p class="mt-6 text-gray-400 italic">
+            Ready to explore your code history? Let’s get started!
+          </p>
+        </div>
+
+        <div class="flex justify-end items-center pt-10 pb-10 h-full w-1/2 ">
+           <img :src="gitbranch" class="h-full w-full object-contain"/> 
+        </div>
+      </div>
+
+      <!--Repo Carousel Section-->
+      <div v-if="!githubStore.loading && !githubStore.error" class="py-10 h-3/5">
+        <div class="px-6">
+          <h1 class="mb-4 text-3xl font-bold text-center text-sky-500">Repositories</h1>
+          <repoCarousel
+            @viewCommits="handleViewCommits"
+          />
+        </div>
+      </div>
+
+      <!--Commit and Favouites Tabs-->
+      <div class="flex flex-col text-center py-5 px-30 bg-[#1f1f1f]">
+        <div class="relative flex justify-center mt-5 items-center">
+
+          <div class="flex gap-6 mx-auto shadow-md px-5 py-2 rounded-lg bg-black">
             <button
               @click="activeTab = 'commits'"
               :class="[
-                'px-4 py-2 font-semibold rounded hover:cursor-pointer w-40',
-                activeTab === 'commits' ? 'bg-sky-500 hover:bg-sky-700 text-white' : 'bg-gray-50 hover:bg-gray-200 dark:text-white'
+                'px-4 py-2 font-semibold rounded-lg hover:cursor-pointer w-40',
+                activeTab === 'commits' ? 'bg-sky-500 text-white' : 'hover:bg-[#1f1f1f] text-white'
               ]"
             >
               Commits
@@ -40,25 +69,32 @@
             <button
               @click="activeTab = 'favourites'"
               :class="[
-                'px-4 py-2 font-semibold rounded hover:cursor-pointer w-40',
-                activeTab === 'favourites' ? 'bg-sky-500 hover:bg-sky-700 text-white' : 'bg-gray-50 hover:bg-gray-200 dark:bg-gray-700 dark:text-white'
+                'px-4 py-2 font-semibold rounded-lg hover:cursor-pointer w-40',
+                activeTab === 'favourites' ? 'bg-sky-500 text-white' : 'hover:bg-[#1f1f1f] text-white'
               ]"
             >
               Favourites
             </button>
           </div>
-
-          <div class="absolute right-30">
-            <select v-model="sortOrder" class="border rounded px-4 py-2 bg-gray-50 text-[#074b60]">
-              <option value="latest" class="rounded px-3 py-2 bg-gray-50">Latest First</option>
-              <option value="oldest" class="rounded px-3 py-2 bg-gray-50">Oldest First</option>
+          <!--Sort dropdown-->
+          <div class="absolute inline-block right-20">
+            <select v-model="sortOrder"
+              class="appearance-none border border-gray-300 rounded-lg pl-4 pr-10 py-2 bg-gray-50 text-[#074b60] text-base font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-400 hover:border-sky-400 transition">
+              <option value="latest">Latest First</option>
+              <option value="oldest">Oldest First</option>
             </select>
+          
+            <svg class="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 pointer-events-none"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
           </div>
+
         </div>
 
         <!--Commits section-->
-        <div v-if="activeTab === 'commits'" class="text-center flex flex-col justify-center mt-5 px-30">
-          <div v-if="githubStore.commits.length" class=" bg-gray-50 py-7 px-5 rounded-lg shadow-inner">
+        <div v-if="activeTab === 'commits'" ref="commitsSection" class="text-center flex flex-col justify-center mt-5 px-3 mb-10">
+          <div v-if="githubStore.commits.length" class=" py-7 px-2 rounded-lg shadow-inner">
     
             <div class="flex flex-wrap gap-3 w-full justify-center">
               <div v-for="commit in sortedCommits" :key="commit.sha" class="">
@@ -114,18 +150,18 @@
               </button>
             </div>
           </div>
-          <div v-else class="flex flex-col items-center justify-center py-16 bg-gray-50 rounded-lg shadow-inner">
+          <div v-else class="flex flex-col items-center justify-center py-16 rounded-lg shadow-inner">
             <!-- Icon -->
             <CodeBracketIcon class="w-16 h-16 text-sky-400 mb-4" />
         
-            <h2 class="text-xl font-bold text-gray-700">No commits for you here</h2>
-            <p class="text-gray-500 mt-2">Please click on a repository to view commits.</p>
+            <h2 class="text-xl font-bold text-white">No commits for you here</h2>
+            <p class="text-gray-100 mt-2">Please click on a repository to view commits.</p>
           
           </div>
         </div>
           <!--Favourites section-->
-        <div v-if="activeTab === 'favourites'" class="text-center flex flex-col justify-center mt-5 px-30">
-          <div v-if="githubStore.favourites.length" class=" bg-gray-50 py-7 px-5 rounded-lg shadow-inner">
+        <div v-if="activeTab === 'favourites'" class="text-center flex flex-col justify-center mt-5 px-3 mb-10">
+          <div v-if="githubStore.favourites.length" class=" py-7 px-5 rounded-lg shadow-inner">
     
             <div class="flex flex-wrap gap-3 w-full justify-center px-5">
               <div v-for="commit in sortedCommits" :key="commit.sha" class="">
@@ -143,14 +179,14 @@
               
             </div>
           </div>
-          <div v-else class="flex flex-col items-center justify-center py-16 bg-gray-50 rounded-lg shadow-inner">
-                <div class="bg-red-50 text-red-500 rounded-full p-2 mb-2">
+          <div v-else class="flex flex-col items-center justify-center py-16 rounded-lg shadow-inner px-3">
+                <div class=" text-red-500 rounded-full p-2 mb-2">
                   <HeartIcon class="w-14 h-14" />
                 </div>
                
-                <h2 class="text-xl font-bold text-gray-700">No favourites yet</h2>
-                <p class="text-gray-500 mt-2">Add commits to your favourites to see them here.</p>
-              </div>
+                <h2 class="text-xl font-bold text-white">No favourites yet</h2>
+                <p class="text-gray-100 mt-2">Add commits to your favourites to see them here.</p>
+          </div>
         </div>
 
       </div>
@@ -167,21 +203,24 @@ import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
 import { useGithubStore } from '../store/github';
 
-import RepoCard from '../components/repoCard.vue';
 import commitDetailModal from '../components/commitDetailModal.vue';
 import CommitCard from '../components/commitCard.vue';
+import repoCarousel from '../components/repoCarousel.vue';
 
-import { ref, computed } from 'vue'
-import { CodeBracketIcon, HeartIcon } from '@heroicons/vue/24/outline';
+import { ref, computed, nextTick } from 'vue'
+import { CodeBracketIcon, HeartIcon, FolderIcon, ClipboardDocumentIcon } from '@heroicons/vue/24/outline';
+
+import gitbranch from "../assets/images/gitbranch2.png";
 
 
+const route = useRoute()
+const githubStore = useGithubStore()
 
 const selectedRepoName = ref<string>("")
 const activeTab = ref<'commits' | 'favourites'>('commits')
 const sortOrder = ref<'latest' | 'oldest'> ('latest')
-
 const currentPage = ref(1)
-
+const commitsSection = ref<HTMLElement | null>(null);
 
 //check for the amount of visible page numbers on pagination
 const visiblePages = computed(() => {
@@ -190,10 +229,6 @@ const visiblePages = computed(() => {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 });
 
-
-
-const route = useRoute()
-const githubStore = useGithubStore()
 
 //sorting commits on date
 const sortedCommits = computed(() => {
@@ -222,7 +257,22 @@ async function handleViewCommits(repoName: string) {
 
   githubStore.totalPages = await githubStore.getTotalCommitPages(username, repoName);
   githubStore.fetchCommits(username, repoName, currentPage.value);
+
+  activeTab.value = 'commits';
+
+  //await nextTick(); //wait for it to load
+  //scroll to commits section
+  //scrollToEl(commitsSection.value, 96);
+
 }
+
+
+function scrollToEl(el: HTMLElement | null, offsetPx = 0) {
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - offsetPx;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
 
 function fetchCommitsForPage(page: number) {
   const username = route.params.username as string;
