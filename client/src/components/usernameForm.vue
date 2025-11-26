@@ -1,28 +1,25 @@
 <template>
-    <form class="w-full h-full bg-transparent rounded px-8 pt-6 pb-8 mb-4 text-white flex flex-col justify-center items-center p-20">
-        <div class="w-40 h-40">
-            <img :src="logo" alt="Logo" class="object-cover w-full h-full"/>
+    <form class="border border-sky-500 w-full h-full bg-transparent rounded px-8 pt-6 pb-8 mb-4 text-white flex flex-col justify-center items-center p-20">
+        <div class="w-30 h-30">
+          <img :src="logo" alt="Logo" class="object-cover w-full h-full"/>
         </div>
         <div class="w-[68%]">
         <div id="header" class="mb-5 text-center w-full">
-             <p class="text-gray-600 leading-normal font-light">
-                Please enter your username to access your repositories
-             </p>
+          <p class="text-sky-500 leading-normal font-light">
+             Please enter your username to access your repositories
+          </p>
         </div>
 
         <div class="mb-10 w-full px-15">
-            <label class="block text-white text-sm font-bold mb-2" for="username">
-                Username
-            </label>
             <input 
-              class="shadow border-2 rounded-lg w-full py-2 px-3 bg-gray-50 text-[#074b60] focus:outline-sky-100 focus:shadow-outline " 
+              class="shadow rounded-lg w-full py-2 px-3 border-2 border-sky-500 bg-gray-50 text-[#074b60] focus:outline-sky-100 focus:shadow-outline " 
               id="username" 
               type="text" 
               placeholder="Username"
               v-model="username"
             >
 
-            <div class="h-6 py-2">
+            <div class="h-2 py-2">
                 <p v-show="username" :class="['text-red-500 text-sm', isValidUsername ? 'invisible' : '']">
                   Invalid username. Only letters, numbers, and single hyphens allowed. No leading/trailing or consecutive hyphens.
                 </p>
@@ -34,7 +31,7 @@
             <button 
                 @click.prevent="handleSubmit" 
                 :class="[
-                    'border-2 border-sky-500 bg-[#074b60] hover:border-white hover:bg-transparent hover:cursor-pointer text-white font-semibold py-2 px-4 rounded-lg w-full',
+                    'border-2 border-sky-500 bg-sky-500 hover:border-white hover:bg-transparent hover:cursor-pointer text-white font-semibold py-2 px-4 rounded-lg w-full',
                     !isValidUsername ? 'invisible' : ''
                   ]"
                 type="button"
@@ -50,7 +47,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import logo from "../assets/images/logo_noBg.png"
+import logo from "../assets/images/logo_black_bg.jpg"
 
 const username = ref('')
 

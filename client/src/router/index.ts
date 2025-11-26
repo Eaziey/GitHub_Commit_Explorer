@@ -7,9 +7,9 @@ import Forbidden from '../Pages/403Page.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
-  { path: '/repos/:username', name: 'Repo', component: Repo, props: true, meta: { showNavbar: true } },
-  { path: '/diff/:filename',name: 'DiffView',component: differencesView, props: true, meta: { showNavbar: true }},
-  { path: '/forbidden',name: 'forbiddenView',component: Forbidden, props: true, meta: { showNavbar: true }},
+  { path: '/repos/:username', name: 'Repo', component: Repo, props: true, meta: { showNavbar: true, transition: 'fade' } },
+  { path: '/diff/:filename',name: 'DiffView',component: differencesView, props: true, meta: { showNavbar: true, transition: 'fade' }},
+  { path: '/forbidden',name: 'forbiddenView',component: Forbidden, props: true, meta: { showNavbar: true, transition: 'fade' }},
 
 ];
 

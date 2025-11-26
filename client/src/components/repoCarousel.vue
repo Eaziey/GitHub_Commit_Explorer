@@ -36,14 +36,16 @@
         :navigation="{ prevEl: prevRepos, nextEl: nextRepos }"
         :pagination="{ type: 'progressbar' }"
         :breakpoints="{
-          320:  { slidesPerView: 1 },
+          320:  { slidesPerView: 1.1 },
           640:  { slidesPerView: 1.2},
           768:  { slidesPerView: 1.5},
-          1024: { slidesPerView: 2.5},
-          1280: { slidesPerView: 2.8},
-          1440: { slidesPerView: 3.4}
+          1024: { slidesPerView: 2},
+          1280: { slidesPerView: 2.7},
+          1440: { slidesPerView: 3.5},
+          1536: { slidesPerView: 4.5 },
+          1920: { slidesPerView: 5.5 },
+          2560: { slidesPerView: 6 },
         }"
-        
         :keyboard="{ enabled: true }"
         :mousewheel="{ forceToAxis: true }"
         class=""

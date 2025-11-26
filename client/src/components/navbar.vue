@@ -13,7 +13,7 @@ const githubStore = useGithubStore();
       <span class="text-xl font-bold text-white">GitSplore</span>
     </router-link>
 
-    <div class="bg-sky-100 text-sky-600 px-4 py-1 rounded-full text-sm font-medium">
+    <div v-show="githubStore.currentUsername" class="bg-sky-100 text-sky-600 px-4 py-1 rounded-full text-sm font-medium">
       {{ githubStore.currentUsername }}
     </div>
   </nav>
