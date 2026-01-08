@@ -1,6 +1,6 @@
 <template>
 
-<div v-if="githubStore.repositories" class="lg:px-40 md:px-10 px-0 relative">
+<div v-if="githubStore.repositories.length > 0" class="lg:px-40 md:px-10 px-0 relative">
   
   <div class="py-2 flex items-center justify-between">
       <h2 class="lg:text-2xl text-sm text-gray-100 font-semibold lg:pl-4">{{ githubStore.currentUsername }}'s Repos</h2>
@@ -67,14 +67,23 @@
     </Swiper>
     </div>
 </div>
-<div v-else class="flex flex-col items-center justify-center lg:min-h-85 min-h-40 rounded-lg shadow-inner">
-  <div class="py-2 flex items-center justify-between">
-    <h2 class="lg:text-2xl text-sm text-gray-100 font-semibold lg:pl-4">{{ githubStore.currentUsername }}'s Repos</h2>
-    <FolderIcon class="md:w-16 md:h-16 w-10 h-10 text-sky-400 mb-4 mt-4" />
-    <h2 class="md:text-xl text-lg font-bold text-white">No repositories found</h2>
-    <p class="text-gray-100 mt-2 md:text-base text-sm">Check that this GitHub profile has repositories to explore.</p>
+<div v-else class="lg:px-40 md:px-10 px-0 relative">
+  <div class="py-2">
+    <h2 class="lg:text-2xl text-sm text-gray-100 font-semibold lg:pl-4 lg:mb-6 md:mb-2 mb-1">
+      {{ githubStore.currentUsername }}'s Repos
+    </h2>
+    <div class="flex flex-col items-center justify-center text-center py-10">
+      <FolderIcon class="md:w-16 md:h-16 w-10 h-10 text-sky-400 mb-4" />
+      <h2 class="md:text-xl text-lg font-bold text-white">
+        No repositories found
+      </h2>
+      <p class="text-gray-100 mt-2 md:text-base text-sm">
+        Check that this GitHub profile has repositories to explore.
+      </p>
+    </div>
   </div>
 </div>
+
 </template>
 
 

@@ -37,8 +37,13 @@ export const useGithubStore = defineStore('github', {
 
       } catch (error) {
         console.log(error);
-        this.handleError("repositories", error);
+        if(axios.isAxiosError(error) && error.response?.status === 404) {
+          this.repositories = [];
+          return;
+        }
 
+        this.handleError("repositories", error);
+        
       } finally {
         this.loading = false
       }
