@@ -7,13 +7,13 @@ const route = useRoute();
 </script>
 
 <template>
-  <Navbar v-if="$route.meta.showNavbar" />
+<Navbar v-if="$route.meta.showNavbar" />
   
 <RouterView v-slot="{ Component }">
     <Transition :name="route.meta.transition || 'fade'" mode="out-in">
       <component :is="Component" />
     </Transition>
-  </RouterView>
+</RouterView>
 
 </template>
 

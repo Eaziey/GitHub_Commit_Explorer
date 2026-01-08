@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-8 w-full min-h-screen">
+    <div class="w-full min-h-screen">
 
       <div v-if="githubStore.error" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
         <div class="px-6 py-4 rounded shadow-lg text-lg bg-red-100 text-red-800 font-semibold">
@@ -9,50 +9,43 @@
 
       <!--Welcome Section-->
       
-      <div v-if="!githubStore.error" class="flex items-center justify-between h-screen w-full">
-        
-        <div class="w-1/2  flex justify-center">
-          <div class="max-w-xl">
-            <h1 class="text-6xl font-extrabold bg-linear-to-r from-sky-400 to-purple-500 bg-clip-text text-transparent">
+      <div v-if="!githubStore.error" class="flex justify-between lg:h-screen h-1/2 w-full  lg:px-10 px-4">
+        <div class="lg:w-1/2 w-full flex justify-center xl:items-center xl:pt-0 pt-10 md:mt-20 mt-18">
+          <div class="">
+            <h1 class="xl:text-6xl md:text-4xl text-3xl font-extrabold bg-linear-to-r from-sky-400 to-purple-500 bg-clip-text text-transparent">
               Welcome to GitSplore
             </h1>
-
-            <p class="text-xl leading-relaxed text-gray-300">
+            <p class="md:text-xl text-lg leading-relaxed text-gray-300">
               Your personal GitHub explorer!  
             </p>
-
-            <ul class="mt-10 text-lg space-y-4 text-white">
-              <li><FolderIcon class="w-7 h-7 text-sky-500"/> <span class="font-semibold">Browse your repositories</span> in a sleek interface.</li>
-              <li><CodeBracketIcon class="w-7 h-7 text-sky-500" /> <span class="font-semibold">Dive into commits</span> for any repo with ease.</li>
-              <li><ClipboardDocumentIcon class="w-7 h-7 text-sky-500" /> <span class="font-semibold">Inspect commit details & files</span> like a pro.</li>
+            <ul class="md:mt-6 mt-3 md:text-lg text-sm lg:space-y-2 space-y-2 text-white">
+              <li><FolderIcon class="md:w-7 md:h-7 w-5 h-5 text-sky-500"/> <span class="font-semibold">Browse your repositories</span> in a sleek interface.</li>
+              <li><CodeBracketIcon class="md:w-7 md:h-7 w-5 h-5 text-sky-500" /> <span class="font-semibold">Dive into commits</span> for any repo with ease.</li>
+              <li><ClipboardDocumentIcon class="md:w-7 md:h-7 w-5 h-5 text-sky-500" /> <span class="font-semibold">Inspect commit details & files</span> like a pro.</li>
             </ul>
-
-            <p class="mt-6 text-gray-400 italic">
+            <p class="lg:text-xl text-sm mt-6 text-gray-400 italic">
               Ready to explore your code history? Let’s get started!
+              
             </p>
-            
-            
           </div>
-          
         </div>
-
-        <div class="flex justify-end items-center h-full w-1/2">
+        <div class="justify-end items-center h-full w-1/2 hidden lg:block">
            <img :src="gitbranch" class="h-full w-full object-contain"/> 
         </div>
-        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center">
-          <p class="text-white">Explore</p>
-          <button @click="scrollToSection(repoSection)" class="flex items-center justify-center justify-self-center mt-2 border-2 border-sky-500 bg-sky-500 hover:border-white hover:cursor-pointer hover:bg-transparent text-white font-semibold py-2 rounded-2xl w-10 h-20">
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center hidden lg:block">
+          <p class="text-white text-sm">Explore</p>
+          <button @click="scrollToSection(repoSection)" class="flex items-center justify-center justify-self-center mt-2 border-2 border-sky-500 bg-sky-500 hover:border-white hover:cursor-pointer hover:bg-transparent text-white font-semibold py-2 rounded-2xl w-10 xl:h-20 h-16">
             <ArrowDownIcon class="w-5 h-5 text-lg animate-bounce" />
           </button>
         </div>
         
       </div>
 
-      <div class="h-screen w-full" ref="repoSection">
+      <div class=" w-full lg:px-10 px-4 lg:mb-6 mb-4" ref="repoSection">
         <!--Repo Carousel Section-->
-        <div class="py-10 h-1/2">
-          <div class="px-6">
-            <h1 class="mb-4 text-3xl font-bold text-center text-sky-500">Repositories</h1>
+        <div class="lg:py-10 py-5 h-1/2 ">
+          <div class="">
+            <h1 class="lg:mb-4 md:mb-2 lg:text-3xl text-xl font-bold text-center text-sky-500">Repositories</h1>
             <repoCarousel
               @viewCommits="handleViewCommits"
             />
@@ -60,14 +53,14 @@
         </div>
 
         <!--Commit and Favouites Tabs-->
-        <div ref="commitsSection" class="flex flex-col text-center py-3 px-30 bg-[#1f1f1f] min-h-1/2">
-          <div class="relative flex justify-center mt-5 items-center">
+        <div ref="commitsSection" class="flex flex-col text-center py-3 xl:px-30 lg:px-20 bg-[#1f1f1f] min-h-1/2">
+          <div class="relative flex md:justify-center justify-between mt-5 items-center px-2">
 
-            <div class="flex gap-6 mx-auto shadow-md px-5 py-2 rounded-lg bg-black">
+            <div class="flex xl:gap-6 lg:gap-4 gap-1 shadow-md xl:px-5 lg:px-3 md:px-2 px-0.5 md:py-2 py-0.5 rounded-lg bg-black border border-sky-500">
               <button
                 @click="activeTab = 'commits'"
                 :class="[
-                  'px-4 py-2 font-semibold rounded-lg hover:cursor-pointer w-40',
+                  'px-4 py-2 font-semibold rounded-lg hover:cursor-pointer xl:w-40 lg:w-30 w-20 xl:text-lg lg:text-sm text-xs',
                   activeTab === 'commits' ? 'bg-sky-500 text-white' : 'hover:bg-[#1f1f1f] text-white'
                 ]"
               >
@@ -76,7 +69,7 @@
               <button
                 @click="activeTab = 'favourites'"
                 :class="[
-                  'px-4 py-2 font-semibold rounded-lg hover:cursor-pointer w-40',
+                  'px-4 py-2 font-semibold rounded-lg hover:cursor-pointer xl:w-40 lg:w-30 xl:text-lg lg:text-sm text-xs',
                   activeTab === 'favourites' ? 'bg-sky-500 text-white' : 'hover:bg-[#1f1f1f] text-white'
                 ]"
               >
@@ -85,9 +78,9 @@
             </div>
 
             <!--Sort dropdown-->
-            <div class="absolute inline-block right-20">
+            <div class="absolute inline-block lg:right-20 md:right-13 right-2">
               <select v-model="sortOrder"
-                class="appearance-none border border-gray-300 rounded-lg pl-4 pr-10 py-2 bg-gray-50 text-[#074b60] text-base font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-400 hover:border-sky-400 transition">
+                class="appearance-none border border-gray-300 rounded-lg pl-4 pr-10 py-2 bg-gray-50 text-[#074b60] shadow-sm xl:w-42 w-25 xl:text-base text-xs focus:outline-none focus:ring-2 focus:ring-sky-400 hover:border-sky-400 transition">
                 <option value="latest">Latest First</option>
                 <option value="oldest">Oldest First</option>
               </select>
@@ -102,9 +95,9 @@
 
           <!--Commits section-->
           <transition name="fade" mode="out-in">
-            <div v-if="activeTab === 'commits'"  class="text-center flex flex-col justify-center mt-5 px-3 mb-10">
-              <div v-if="githubStore.commits.length && !githubStore.loading" class=" pt-2 px-2 ">
-                <div class="flex flex-wrap gap-3 w-full justify-center">
+            <div v-if="activeTab === 'commits'" class="text-center flex flex-col justify-center lg:mt-5 mt-2 md:px-3 lg:min-h-85 min-h-40">
+              <div v-if="githubStore.commits.length && !githubStore.loading" class=" md:py-7 py-2 shadow-inner lg:mb-4 mb-2">
+                <div class="flex flex-wrap md:gap-3 gap-1 w-full justify-center">
                 
                   <!-- Otherwise render real commits -->
                   <template v-if="githubStore.commits.length">
@@ -163,22 +156,20 @@
                   </button>
                 </div>
               </div>
-              <div v-else class="flex flex-col items-center justify-center min-h-85 rounded-lg shadow-inner">
-                <!-- Icon -->
-                <CodeBracketIcon class="w-16 h-16 text-sky-400 mb-4" />
-
-                <h2 class="text-xl font-bold text-white">No commits for you here</h2>
-                <p class="text-gray-100 mt-2">Please click on a repository to view commits.</p>
+              <div v-else class="flex flex-col items-center justify-center lg:min-h-85 min-h-40 rounded-lg shadow-inner">
+                <CodeBracketIcon class="md:w-16 md:h-16 w-10 h-10 text-sky-400 mb-4" />
+                <h2 class="md:text-xl text-lg font-bold text-white">No commits for you here</h2>
+                <p class="text-gray-100 mt-2 md:text-base text-sm">Please click on a repository to view commits.</p>
               </div>
             </div>
           </transition>
             <!--Favourites section-->
           <transition name="fade" mode="out-in">
-          <div v-if="activeTab === 'favourites'" class="text-center flex flex-col justify-center mt-5 px-3 min-h-85 mb-10 ">
-            <div v-if="githubStore.favourites.length" class=" py-7 px-5 rounded-lg shadow-inner">
+          <div v-if="activeTab === 'favourites'" class="text-center flex flex-col justify-center lg:mt-5 mt-2 md:px-3 mb-10 lg:min-h-85 min-h-40 ">
+            <div v-if="githubStore.favourites.length" class="md:py-7 py-2 shadow-inner">
             
-              <div class="flex flex-wrap gap-3 w-full justify-center px-5">
-                <div v-for="commit in sortedCommits" :key="commit.sha" class="">
+              <div class="flex flex-wrap md:gap-3 gap-1 w-full justify-center">
+                <div v-for="commit in sortedCommits" :key="commit.sha">
                   <CommitCard 
                     :message="commit.commit.message" 
                     :name="commit.commit.author.name" 
@@ -193,13 +184,12 @@
 
               </div>
             </div>
-            <div v-else class="flex flex-col items-center justify-center min-h-85 rounded-lg shadow-inner">
-              <div class=" text-red-500 rounded-full p-2 mb-2">
-                <HeartIcon class="w-14 h-14" />
+            <div v-else class="flex flex-col items-center justify-center lg:min-h-85 min-h-40 rounded-lg shadow-inner">
+              <div class=" text-red-500 rounded-full md:p-2 p-1 md:mb-2 mb-1">
+                <HeartIcon class="md:w-16 md:h-16 w-10 h-10" />
               </div>
-            
-              <h2 class="text-xl font-bold text-white">No favourites yet</h2>
-              <p class="text-gray-100 mt-2">Add commits to your favourites to see them here.</p>
+              <h2 class="md:text-xl text-lg font-bold text-white">No favourites yet</h2>
+              <p class="text-gray-100 mt-2 md:text-base text-sm">Add commits to your favourites to see them here.</p>
             </div>
           </div>
           </transition>

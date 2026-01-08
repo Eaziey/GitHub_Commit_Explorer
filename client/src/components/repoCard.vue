@@ -24,7 +24,7 @@ onMounted(() => {
 <template>
     <div 
       @click="emit('viewCommits', props.name)"
-      class="relative p-6 bg-[#1f1f1f] rounded-xl w-75 lg:w-80 h-45 transition-transform duration-300 overflow-hidden hover:cursor-pointer hover:scale-102">
+      class="relative p-6 bg-[#1f1f1f] rounded-xl md:w-75 w-60 md:h-45 h-35 transition-transform duration-300 overflow-hidden hover:cursor-pointer hover:scale-102">
 
       <div class=" px-1">
         <template v-if="repoLoading">
@@ -36,11 +36,11 @@ onMounted(() => {
           </div>
         </template>
         <template v-else>
-          <FolderIcon class="w-7 h-7 text-sky-500"/>
-          <h5 class="mb-2 text-white text-lg font-semibold">
+          <FolderIcon class="md:w-7 md:h-7 w-5 h-5 text-sky-500"/>
+          <h5 class="md:mb-2 mb-1 text-white md:text-lg text-sm font-semibold">
             {{props.name}}
           </h5>
-          <p class="text-gray-100 leading-normal line-clamp-3 font-light text-sm">
+          <p class="text-gray-100 leading-normal line-clamp-3 font-light md:text-sm text-xs">
             {{ props.description || 'No description available.' }}
           </p>
         </template>

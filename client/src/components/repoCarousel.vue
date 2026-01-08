@@ -1,15 +1,15 @@
 <template>
 
-<div class="lg:px-40 relative">
+<div v-if="githubStore.repositories" class="lg:px-40 md:px-10 px-0 relative">
   
-<div class="py-4 flex items-center justify-between">
-      <h2 class="text-2xl text-gray-100 font-semibold pl-4">{{ githubStore.currentUsername }}'s Repos</h2>
+  <div class="py-2 flex items-center justify-between">
+      <h2 class="lg:text-2xl text-sm text-gray-100 font-semibold lg:pl-4">{{ githubStore.currentUsername }}'s Repos</h2>
 
       <div class="flex items-center gap-2 pr-4">
         <!-- Prev -->
         <button
           ref="prevRepos"
-          class="icon-btn rounded-full w-6 h-6 lg:w-10 lg:h-10"
+          class="icon-btn rounded-full w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10"
           type="button"
           aria-label="Previous"
         >
@@ -18,7 +18,7 @@
 
         <button
           ref="nextRepos"
-          class="icon-btn rounded-full w-8 h-8 lg:w-10 lg:h-10"
+          class="icon-btn rounded-full w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10"
           type="button"
           aria-label="Next"
         >
@@ -36,13 +36,17 @@
         :navigation="{ prevEl: prevRepos, nextEl: nextRepos }"
         :pagination="{ type: 'progressbar' }"
         :breakpoints="{
-          320:  { slidesPerView: 1.1 },
-          640:  { slidesPerView: 1.2},
-          768:  { slidesPerView: 1.5},
+          320:  { slidesPerView: 1.2},
+          375:  { slidesPerView: 1.35},
+          412: {slidesPerView: 1.5},
+          540: {slidesPerView: 2},
+          768:  { slidesPerView: 2.1},
+          820: {slidesPerView: 2.25},
+          912: {slidesPerView: 2.5},
           1024: { slidesPerView: 2},
-          1280: { slidesPerView: 2.7},
-          1440: { slidesPerView: 3.5},
-          1536: { slidesPerView: 4.5 },
+          1280: { slidesPerView: 2.8},
+          1440: { slidesPerView: 3.4},
+          1536: { slidesPerView: 4.4},
           1920: { slidesPerView: 5.5 },
           2560: { slidesPerView: 6 },
         }"
@@ -51,7 +55,7 @@
         class=""
     >
         <SwiperSlide v-for="repo in githubStore.repositories" :key="repo.id">
-          <div class="w-full h-full pl-4 py-2">
+          <div class="w-full h-full py-2">
             <RepoCard
               :name="repo.name"
               :description="repo.description"
@@ -63,6 +67,15 @@
     </Swiper>
     </div>
 </div>
+<div v-else class="flex flex-col items-center justify-center lg:min-h-85 min-h-40 rounded-lg shadow-inner">
+  <div class="py-2 flex items-center justify-between">
+    <h2 class="lg:text-2xl text-sm text-gray-100 font-semibold lg:pl-4">{{ githubStore.currentUsername }}'s Repos</h2>
+    <FolderIcon class="md:w-16 md:h-16 w-10 h-10 text-sky-400 mb-4 mt-4" />
+    <h2 class="md:text-xl text-lg font-bold text-white">No repositories for you here</h2>
+    <p class="text-gray-100 mt-2 md:text-base text-sm">Make sure you have repositories in your GitHub to be able to explore them.</p>
+  </div>
+</div>
+
 
 </template>
 
@@ -73,7 +86,7 @@ import { useGithubStore } from '../store/github';
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'
 
-import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/vue/24/outline';
+import { ArrowLeftIcon, ArrowRightIcon, FolderIcon } from '@heroicons/vue/24/outline';
 
 import 'swiper/css'
 import 'swiper/css/navigation'

@@ -67,15 +67,15 @@ defineEmits(['close'])
 const router = useRouter();
 
 function viewDiff(file: { filename: string; patch?: string }) {
-    if (!file.patch) {
-      alert('No diff available for this file.');
-      return;
-    }
-    router.push({
-      name: 'DiffView',
-      params: { filename: file.filename },
-      query: { patch: file.patch }
-    });
+  if (!file.patch) {
+    alert('No diff available for this file.');
+    return;
   }
+  router.push({
+    name: 'DiffView',
+    params: { filename: file.filename },
+    query: { patch: file.patch }
+  });
+}
 
 </script>
