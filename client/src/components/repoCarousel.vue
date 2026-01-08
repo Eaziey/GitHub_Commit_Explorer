@@ -71,12 +71,10 @@
   <div class="py-2 flex items-center justify-between">
     <h2 class="lg:text-2xl text-sm text-gray-100 font-semibold lg:pl-4">{{ githubStore.currentUsername }}'s Repos</h2>
     <FolderIcon class="md:w-16 md:h-16 w-10 h-10 text-sky-400 mb-4 mt-4" />
-    <h2 class="md:text-xl text-lg font-bold text-white">No repositories for you here</h2>
-    <p class="text-gray-100 mt-2 md:text-base text-sm">Make sure you have repositories in your GitHub to be able to explore them.</p>
+    <h2 class="md:text-xl text-lg font-bold text-white">No repositories found</h2>
+    <p class="text-gray-100 mt-2 md:text-base text-sm">Check that this GitHub profile has repositories to explore.</p>
   </div>
 </div>
-
-
 </template>
 
 
