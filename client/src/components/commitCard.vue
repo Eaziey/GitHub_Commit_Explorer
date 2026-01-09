@@ -38,9 +38,9 @@ onMounted(() => {
 
 <template>
   <div 
-    class="bg-[#0f0f0f] border border-gray-500 flex flex-col md:w-60 sm:w-40 w-37 md:h-70 h-43 rounded-xl transition-transform duration-300 hover:scale-102 md:p-2 p-1"
+    class="bg-[#0f0f0f] flex flex-col xl2:w-67 xl:w-71 lg:w-76 md2:w-108 md:w-89 sm2:w-95 xs2:w-61 w-full lg:h-72 md2:h-100 md:h-86 sm2:h-89 sm:h-77 xs2:h-63 h-68 rounded-sm transition-transform duration-300 hover:scale-102 md:p-2 p-1"
   >
-    <div class="md:h-full rounded-xl md:px-4 flex flex-col">
+    <div class="rounded-sm md:h-full md:px-4 flex flex-col">
       <!-- Header -->
       <div class="flex justify-between items-center">
         <CodeBracketIcon class="md:w-6 md:h-6 w-5 h-5 text-sky-500" />
@@ -90,7 +90,7 @@ onMounted(() => {
     </div>
 
     <!-- Footer -->
-    <div class="mt-auto flex justify-between items-center md:px-4 md:pb-2 px-1 pb-1">
+    <div class="mt-auto flex justify-between items-center md:px-4 md:py-2 px-1 py-1 ">
 
       <template v-if="commitLoading">
         <div class="md:h-3 md:w-24 h-2 w-5/6 bg-gray-700/40 rounded animate-pulse"></div>
