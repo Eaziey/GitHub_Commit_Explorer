@@ -4,6 +4,35 @@ import { useGithubStore } from '../store/github';
 import axios from 'axios';
 import router from '../router';
 
+// Fully type-safe localStorage mock for Node environment
+if (typeof localStorage === 'undefined' || localStorage === null) {
+ (globalThis as any).localStorage = {
+   store: {} as Record<string, string>,
+   // Required property: number of stored items
+   get length() {
+     return Object.keys(this.store).length
+   },
+   // Required method: get key by index
+   key(index: number): string | null {
+     const keys = Object.keys(this.store)
+     return keys[index] ?? null
+   },
+   // Standard Storage methods
+   getItem(key: string) {
+     return this.store[key] ?? null
+   },
+   setItem(key: string, value: string) {
+     this.store[key] = value.toString()
+   },
+   removeItem(key: string) {
+     delete this.store[key]
+   },
+   clear() {
+     this.store = {}
+   },
+ } as Storage
+}
+
 vi.mock('axios');
 vi.mock('../router', () => ({
   default: {
