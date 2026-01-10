@@ -2,6 +2,18 @@
 /*@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');*/
 
 
+@theme {
+  /* Custom colors */
+  --color-customDarkPurple: #180031;
+  --color-customSky: #0ea5e9;
+
+  /* Breakpoints*/   
+  --breakpoint-xs2: 33.75rem;
+  --breakpoint-md2: 57rem;
+  --breakpoint-sm2: 51.25rem;
+  --breakpoint-xl2: 90rem;
+}
+
 html {
   scrollbar-gutter: stable;
 }
@@ -19,3 +31,5 @@ body {
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
 }
+
+

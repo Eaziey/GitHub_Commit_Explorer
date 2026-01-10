@@ -24,7 +24,7 @@ onMounted(() => {
 <template>
     <div 
       @click="emit('viewCommits', props.name)"
-      class="relative p-6 bg-[#1f1f1f] rounded-xl md:w-75 w-60 md:h-45 h-35 transition-transform duration-300 overflow-hidden hover:cursor-pointer hover:scale-102">
+      class="relative p-6 bg-[#1f1f1f] rounded-sm md:w-75 w-60 md:h-45 h-35 transition-transform duration-300 overflow-hidden hover:cursor-pointer hover:scale-102">
 
       <div class=" px-1">
         <template v-if="repoLoading">

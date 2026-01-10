@@ -1,9 +1,9 @@
 <template>
 
-<div v-if="githubStore.repositories.length > 0" class="lg:px-40 md:px-10 px-0 relative">
+<div v-if="githubStore.repositories.length > 0" class=" relative ">
   
   <div class="py-2 flex items-center justify-between">
-      <h2 class="lg:text-2xl text-sm text-gray-100 font-semibold lg:pl-4">{{ githubStore.currentUsername }}'s Repos</h2>
+      <h2 class="pl-4 lg:text-2xl text-sm text-gray-100 font-semibold">{{ githubStore.currentUsername }}'s Repos</h2>
 
       <div class="flex items-center gap-2 pr-4">
         <!-- Prev -->
@@ -36,19 +36,20 @@
         :navigation="{ prevEl: prevRepos, nextEl: nextRepos }"
         :pagination="{ type: 'progressbar' }"
         :breakpoints="{
-          320:  { slidesPerView: 1.2},
+          320:  { slidesPerView: 1.23},
+          360:  { slidesPerView: 1.25},
           375:  { slidesPerView: 1.35},
           412: {slidesPerView: 1.5},
           540: {slidesPerView: 2},
-          768:  { slidesPerView: 2.1},
-          820: {slidesPerView: 2.25},
-          912: {slidesPerView: 2.5},
-          1024: { slidesPerView: 2},
-          1280: { slidesPerView: 2.8},
-          1440: { slidesPerView: 3.4},
-          1536: { slidesPerView: 4.4},
-          1920: { slidesPerView: 5.5 },
-          2560: { slidesPerView: 6 },
+          768:  { slidesPerView: 2.35},
+          820: {slidesPerView: 2.5},
+          912: {slidesPerView: 2.8},
+          1024: { slidesPerView: 3},
+          1280: { slidesPerView: 3.8},
+          1440: { slidesPerView: 4.4},
+          1536: { slidesPerView: 5.4},
+          1920: { slidesPerView: 6.5 },
+          2560: { slidesPerView: 7 },
         }"
         :keyboard="{ enabled: true }"
         :mousewheel="{ forceToAxis: true }"

@@ -11,7 +11,7 @@
       </div>
 
     <!-- Page -->
-      <div v-else class="h-screen w-full flex flex-col lg:flex-row justify-center items-center border border-red-500">
+      <div v-else class="h-screen w-full flex flex-col lg:flex-row justify-center items-center">
         <div class="xl:w-1/2 w-full h-full hidden xl:block">
           <img :src="homeBgImage" loading="lazy" alt="Background" class="object-cover w-full h-full" />
         </div>

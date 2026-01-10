@@ -1,5 +1,5 @@
 <template>
-    <form class="w-full h-full bg-transparent rounded px-8 pt-6 pb-8 text-white flex flex-col justify-center items-center border border-red-500">
+    <form class="w-full h-full bg-transparent rounded px-8 pt-6 pb-8 text-white flex flex-col justify-center items-center ">
         <div class="xl:w-30 xl:h-30 lg:h-50 h-80">
           <img :src="logo" alt="Logo" class="object-cover w-full h-full"/>
         </div>
@@ -12,7 +12,7 @@
 
           <div class="mb-10 w-full">
               <input 
-                class="shadow rounded-lg w-full py-2 xl:py-3 md:py-4 px-4 border-2 border-sky-500 bg-gray-50 text-[#074b60] focus:outline-sky-100 focus:shadow-outline " 
+                class="shadow rounded-sm w-full py-2 xl:py-3 md:py-4 px-4 border-2 border-sky-500 bg-gray-50 text-[#074b60] focus:outline-sky-100 focus:shadow-outline " 
                 id="username" 
                 type="text" 
                 placeholder="Username"
@@ -31,7 +31,7 @@
               <button 
                   @click.prevent="handleSubmit" 
                   :class="[
-                      'border-2 border-sky-500 bg-sky-500 hover:border-white hover:bg-transparent hover:cursor-pointer text-white font-semibold py-2 xl:py-3 md:py-4 px-4 rounded-lg w-full',
+                      'border-2 border-sky-500 bg-sky-500 hover:border-white hover:bg-transparent hover:cursor-pointer text-white font-semibold py-2 xl:py-3 md:py-4 px-4 rounded-sm w-full',
                       !isValidUsername ? 'invisible' : ''
                     ]"
                   type="button"

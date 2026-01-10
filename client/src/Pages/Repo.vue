@@ -9,8 +9,8 @@
 
       <!--Welcome Section-->
       
-      <div v-if="!githubStore.error" class="flex justify-between lg:h-screen h-1/2 w-full  lg:px-10 px-4">
-        <div class="lg:w-1/2 w-full flex justify-center xl:items-center xl:pt-0 pt-10 md:mt-20 mt-18">
+      <div v-if="!githubStore.error" class="flex justify-between xl:h-screen lg:min-h-1/2 h-1/2 w-full lg:px-10 px-4 lg:mb-10 mb-6">
+        <div class="xl:w-1/2 w-full flex justify-center xl:pt-0 pt-10 xl:mt-50 mt-18">
           <div class="">
             <h1 class="xl:text-6xl md:text-4xl text-3xl font-extrabold bg-linear-to-r from-sky-400 to-purple-500 bg-clip-text text-transparent">
               Welcome to GitSplore
@@ -29,10 +29,10 @@
             </p>
           </div>
         </div>
-        <div class="justify-end items-center h-full w-1/2 hidden lg:block">
+        <div class="justify-end items-center h-full w-1/2 hidden xl:block">
            <img :src="gitbranch" class="h-full w-full object-contain"/> 
         </div>
-        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center hidden lg:block">
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-center hidden xl:block">
           <p class="text-white text-sm">Explore</p>
           <button @click="scrollToSection(repoSection)" class="flex items-center justify-center justify-self-center mt-2 border-2 border-sky-500 bg-sky-500 hover:border-white hover:cursor-pointer hover:bg-transparent text-white font-semibold py-2 rounded-2xl w-10 xl:h-20 h-16">
             <ArrowDownIcon class="w-5 h-5 text-lg animate-bounce" />
@@ -41,9 +41,9 @@
         
       </div>
 
-      <div class=" w-full lg:px-10 px-4 lg:mb-6 mb-4" ref="repoSection">
+      <div class=" w-full lg:mb-6 mb-4" ref="repoSection">
         <!--Repo Carousel Section-->
-        <div class="lg:py-10 py-5 h-1/2 ">
+        <div class="lg:py-10 py-5 h-1/2 lg:mx-10 mx-4">
           <div class="">
             <h1 class="lg:mb-4 md:mb-2 lg:text-3xl text-xl font-bold text-center text-sky-500">Repositories</h1>
             <repoCarousel
@@ -53,15 +53,15 @@
         </div>
 
         <!--Commit and Favouites Tabs-->
-        <div ref="commitsSection" class="flex flex-col text-center py-3 xl:px-30 lg:px-20 bg-[#1f1f1f] min-h-1/2">
+        <div ref="commitsSection" class="flex flex-col text-center py-3 bg-[#1f1f1f] min-h-1/2 w-full">
           <div class="relative flex md:justify-center justify-between mt-5 items-center px-2">
 
-            <div class="flex xl:gap-6 lg:gap-4 gap-1 shadow-md xl:px-5 lg:px-3 md:px-2 px-0.5 md:py-2 py-0.5 rounded-lg bg-black border border-sky-500">
+            <div class="flex xl:gap-6 lg:gap-4 gap-1  xl:px-5 lg:px-3 md:px-2 px-0.5 md:py-2 py-0.5 ">
               <button
                 @click="activeTab = 'commits'"
                 :class="[
-                  'px-4 py-2 font-semibold rounded-lg hover:cursor-pointer xl:w-40 lg:w-30 w-20 xl:text-lg lg:text-sm text-xs',
-                  activeTab === 'commits' ? 'bg-sky-500 text-white' : 'hover:bg-[#1f1f1f] text-white'
+                  'px-4 py-2 font-semibold rounded-sm hover:cursor-pointer xl:w-40 lg:w-30 w-25 h-10 xl:text-lg lg:text-sm text-xs',
+                  activeTab === 'commits' ? 'bg-sky-500 text-white' : 'hover:border hover:border-sky-500 text-white'
                 ]"
               >
                 Commits
@@ -69,8 +69,8 @@
               <button
                 @click="activeTab = 'favourites'"
                 :class="[
-                  'px-4 py-2 font-semibold rounded-lg hover:cursor-pointer xl:w-40 lg:w-30 xl:text-lg lg:text-sm text-xs',
-                  activeTab === 'favourites' ? 'bg-sky-500 text-white' : 'hover:bg-[#1f1f1f] text-white'
+                  'px-4 font-semibold rounded-sm hover:cursor-pointer xl:w-40 lg:w-30 w-25 h-10 xl:text-lg lg:text-sm text-xs',
+                  activeTab === 'favourites' ? 'bg-sky-500 text-white'  : 'hover:border hover:border-sky-500 text-white'
                 ]"
               >
                 Favourites
@@ -80,7 +80,7 @@
             <!--Sort dropdown-->
             <div class="absolute inline-block lg:right-20 md:right-13 right-2">
               <select v-model="sortOrder"
-                class="appearance-none border border-gray-300 rounded-lg pl-4 pr-10 py-2 bg-gray-50 text-[#074b60] shadow-sm xl:w-42 w-25 xl:text-base text-xs focus:outline-none focus:ring-2 focus:ring-sky-400 hover:border-sky-400 transition">
+                class="appearance-none border border-gray-300 rounded-sm pl-4 pr-10 py-2 bg-gray-50 text-[#074b60] shadow-sm xl:w-42 w-25 xl:text-base text-xs focus:outline-none focus:ring-2 focus:ring-sky-400 hover:border-sky-400 transition">
                 <option value="latest">Latest First</option>
                 <option value="oldest">Oldest First</option>
               </select>
@@ -95,10 +95,9 @@
 
           <!--Commits section-->
           <transition name="fade" mode="out-in">
-            <div v-if="activeTab === 'commits'" class="text-center flex flex-col justify-center lg:mt-5 mt-2 md:px-3 lg:min-h-85 min-h-40">
-              <div v-if="githubStore.commits.length && !githubStore.loading" class=" md:py-7 py-2 shadow-inner lg:mb-4 mb-2">
-                <div class="flex flex-wrap md:gap-3 gap-1 w-full justify-center">
-                
+            <div v-if="activeTab === 'commits'" class="text-center flex flex-col justify-center lg:mt-5 mt-2 mb-10 lg:min-h-85 min-h-40 lg:mx-10 mx-4">
+              <div v-if="githubStore.commits.length && !githubStore.loading" class="md:py-7 py-2">
+                <div class="flex flex-wrap xl2:gap-5 xl:gap-4.5 md:gap-3 sm2:gap-4 gap-3 w-full justify-start">
                   <!-- Otherwise render real commits -->
                   <template v-if="githubStore.commits.length">
                     <div v-for="commit in sortedCommits" :key="commit.sha">
@@ -121,7 +120,7 @@
                   <!-- First Page -->
                   <button
                     @click="fetchCommitsForPage(1)"
-                    class="px-3 py-1 rounded font-semibold bg-gray-300 text-black"
+                    class="px-3 py-1 rounded-sm font-semibold bg-[#0f0f0f] text-white hover:cursor-pointer"
                     v-if="currentPage > 3"
                   >
                     1
@@ -136,8 +135,8 @@
                     :key="page"
                     @click="fetchCommitsForPage(page)"
                     :class="[
-                      'px-3 py-1 rounded font-semibold',
-                      currentPage === page ? 'bg-sky-500 text-white' : 'bg-gray-300 text-black'
+                      'px-3 py-1 rounded-sm font-semibold text-white hover:cursor-pointer',
+                      currentPage === page ? 'bg-sky-500 text-white' : 'bg-[#0f0f0f] '
                     ]"
                   >
                     {{ page }}
@@ -149,14 +148,14 @@
                   <!-- Last Page -->
                   <button
                     @click="fetchCommitsForPage(githubStore.totalPages)"
-                    class="px-3 py-1 rounded font-semibold bg-gray-300 text-black"
+                    class="px-3 py-1 rounded-sm font-semibold bg-[#0f0f0f] text-white hover:cursor-pointer"
                     v-if="currentPage < githubStore.totalPages - 2"
                   >
                     {{ githubStore.totalPages }}
                   </button>
                 </div>
               </div>
-              <div v-else class="flex flex-col items-center justify-center lg:min-h-85 min-h-40 rounded-lg shadow-inner">
+              <div v-else class="flex flex-col items-center justify-center lg:min-h-85 min-h-40 rounded-lg">
                 <CodeBracketIcon class="md:w-16 md:h-16 w-10 h-10 text-sky-400 mb-4" />
                 <h2 class="md:text-xl text-lg font-bold text-white">No commits for you here</h2>
                 <p class="text-gray-100 mt-2 md:text-base text-sm">Please click on a repository to view commits.</p>
@@ -165,11 +164,11 @@
           </transition>
             <!--Favourites section-->
           <transition name="fade" mode="out-in">
-          <div v-if="activeTab === 'favourites'" class="text-center flex flex-col justify-center lg:mt-5 mt-2 md:px-3 mb-10 lg:min-h-85 min-h-40 ">
-            <div v-if="githubStore.favourites.length" class="md:py-7 py-2 shadow-inner">
+          <div v-if="activeTab === 'favourites'" class="text-center flex flex-col justify-center lg:mt-5 mt-2 mb-10 lg:min-h-85 min-h-40 lg:mx-10 mx-4">
+            <div v-if="githubStore.favourites.length" class="md:py-7 py-2">
             
-              <div class="flex flex-wrap md:gap-3 gap-1 w-full justify-center">
-                <div v-for="commit in sortedCommits" :key="commit.sha">
+              <div class="flex flex-wrap xl2:gap-5 xl:gap-4.5 md:gap-3 sm2:gap-4 gap-3 w-full justify-start">
+                <div v-for="commit in sortedCommits" :key="commit.sha" class="md:w-auto xs2:w-auto w-full">
                   <CommitCard 
                     :message="commit.commit.message" 
                     :name="commit.commit.author.name" 
@@ -184,7 +183,7 @@
 
               </div>
             </div>
-            <div v-else class="flex flex-col items-center justify-center lg:min-h-85 min-h-40 rounded-lg shadow-inner">
+            <div v-else class="flex flex-col items-center justify-center lg:min-h-85 min-h-40 rounded-lg">
               <div class=" text-red-500 rounded-full md:p-2 p-1 md:mb-2 mb-1">
                 <HeartIcon class="md:w-16 md:h-16 w-10 h-10" />
               </div>
