@@ -1,5 +1,5 @@
 
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from '../Pages/Home.vue';
 import Repo from '../Pages/Repo.vue';
 import differencesView from '../components/differencesView.vue';
@@ -14,7 +14,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes
 });
 
