@@ -1,4 +1,4 @@
 export default {
-  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./client/index.html', './client/src/**/*.{vue,js,ts,jsx,tsx}'],
   plugins: []
 }
