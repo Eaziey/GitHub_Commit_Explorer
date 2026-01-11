@@ -42,19 +42,26 @@ Search repos, view commit logs, drill into commit details (files changed, additi
 ---
 
 ## 📸 Quick View
-- Home Page  
+- Home Page
+<h3 style="color:#0ea5e9;">Home Page</h3>
 <img src="client/src/assets/images/HomePage.png" style="width: 50%"/>
 -Landing Page
+<h3 align="center" style="color:#0ea5e9;">Landing Page</h3>
 <img src="client/src/assets/images/LandingPage.png" style="width: 50%"/>
 - Repo Section
+<h3 align="center" style="color:#0ea5e9;">Repo Section</h3>
 <img src="client/src/assets/images/Repos.png" style="width: 50%"/>
 - Commits section
+<h3 align="center" style="color:#0ea5e9;">Commits section</h3>
   <img src="client/src/assets/images/commits.png" style="width: 50%"/>
 -Favourites section
+<h3 align="center" style="color:#0ea5e9;">Favourites section</h3>
 <img src="client/src/assets/images/Favourites.png" style="width: 50%"/>
 -View commit modal
+<h3 align="center" style="color:#0ea5e9;">View commit details modal</h3>
 <img src="client/src/assets/images/viewCommit.png" style="width: 50%"/>
 -Commit Details
+<h3 align="center" style="color:#0ea5e9;">Commit differences</h3>
 <img src="client/src/assets/images/commitDetails.png" style="width: 50%"/>
 
 ---
@@ -62,10 +69,10 @@ Search repos, view commit logs, drill into commit details (files changed, additi
 ## 📦 Installation & Setup
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/github_commit_explorer.git
+git clone https://github.com/Eaziey/GitHub_Commit_Explorer.git
 
 # Navigate to project folder
-cd github_commit_explorer
+cd GitHub_Commit_Explorer/client
 
 # Install dependencies
 npm install
@@ -76,21 +83,5 @@ npm run dev
 # Run tests
 npm run test
 
-
-How to get started:
-1. Clone the Repository
-    -git clone https://github.com/Eaziey/GitHub_Commit_Explorer.git
-    -cd GitHub_Commit_Explorer
-
-2. Install Dependencies
-    -cd client
-    -npm install
-
-3. Run the Development Server
-    -npm run dev
-
-Running Tests
-    -npm run test
-
-Building for Production
-    -npm run build
+# Building for Production
+npm run build
