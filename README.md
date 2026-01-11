@@ -19,8 +19,8 @@ Search repos, view commit logs, drill into commit details (files changed, additi
 ---
 
 ## ✨ Features
-- 🔍 **Search GitHub Users** – Enter a username and fetch all public repositories
-- 📜 **View Commits** – Browse commits for any repository
+- 🔍 **Search GitHub Users** – Enter a username and fetch all public repositories for any github user
+- 📜 **View Commits** – Browse commits for any public repository
 - 📝 **Commit Details** – See files changed, additions, deletions, and diffs
 - ⭐ **Favourites** – Mark commits as favourites and manage them easily
 - 🔄 **Sorting** – Sort commits by newest or oldest
