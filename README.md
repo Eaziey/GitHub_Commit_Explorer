@@ -42,26 +42,25 @@ Search repos, view commit logs, drill into commit details (files changed, additi
 ---
 
 ## 📸 Quick View
-- Home Page
 <h3 style="color:#0ea5e9;">Home Page</h3>
 <img src="client/src/assets/images/HomePage.png" style="width: 50%"/>
--Landing Page
-<h3 align="center" style="color:#0ea5e9;">Landing Page</h3>
+
+<h3 style="color:#0ea5e9;">Landing Page</h3>
 <img src="client/src/assets/images/LandingPage.png" style="width: 50%"/>
-- Repo Section
-<h3 align="center" style="color:#0ea5e9;">Repo Section</h3>
+
+<h3 style="color:#0ea5e9;">Repo Section</h3>
 <img src="client/src/assets/images/Repos.png" style="width: 50%"/>
-- Commits section
-<h3 align="center" style="color:#0ea5e9;">Commits section</h3>
+
+<h3 style="color:#0ea5e9;">Commits section</h3>
   <img src="client/src/assets/images/commits.png" style="width: 50%"/>
--Favourites section
-<h3 align="center" style="color:#0ea5e9;">Favourites section</h3>
+
+<h3 style="color:#0ea5e9;">Favourites section</h3>
 <img src="client/src/assets/images/Favourites.png" style="width: 50%"/>
--View commit modal
-<h3 align="center" style="color:#0ea5e9;">View commit details modal</h3>
+
+<h3 style="color:#0ea5e9;">View commit details modal</h3>
 <img src="client/src/assets/images/viewCommit.png" style="width: 50%"/>
--Commit Details
-<h3 align="center" style="color:#0ea5e9;">Commit differences</h3>
+
+<h3 style="color:#0ea5e9;">Commit differences</h3>
 <img src="client/src/assets/images/commitDetails.png" style="width: 50%"/>
 
 ---
