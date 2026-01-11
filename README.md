@@ -41,9 +41,9 @@ Search repos, view commit logs, drill into commit details (files changed, additi
 
 ---
 
-## 📸 Screenshots
-*(Add screenshots here)*  
+## 📸 Quick View
 - Home Page  
+![Home Page](client/src/assets/images/HomePage.png)
 - Repo Page  
 - Commit Details  
 
