@@ -43,11 +43,19 @@ Search repos, view commit logs, drill into commit details (files changed, additi
 
 ## 📸 Quick View
 - Home Page  
-![Home Page]client/src/assets/images/HomePage.png)
--Landing Page
 <img src="client/src/assets/images/HomePage.png" style="width: 50%"/>
-- Repo Page  
-- Commit Details  
+-Landing Page
+<img src="client/src/assets/images/LandingPage.png" style="width: 50%"/>
+- Repo Section
+<img src="client/src/assets/images/Repos.png" style="width: 50%"/>
+- Commits section
+  <img src="client/src/assets/images/commits.png" style="width: 50%"/>
+-Favourites section
+<img src="client/src/assets/images/Favourites.png" style="width: 50%"/>
+-View commit modal
+<img src="client/src/assets/images/viewCommit.png" style="width: 50%"/>
+-Commit Details
+<img src="client/src/assets/images/commitDetails.png" style="width: 50%"/>
 
 ---
 
