@@ -14,7 +14,7 @@ Search repos, view commit logs, drill into commit details (files changed, additi
 ---
 
 ## 🚀 Live Demo
-👉 [View Live App]((https://eaziey.github.io/GitHub_Commit_Explorer/))
+👉 [View Live App](https://eaziey.github.io/GitHub_Commit_Explorer/)
 
 ---
 
