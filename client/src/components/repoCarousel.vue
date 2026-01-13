@@ -47,7 +47,7 @@
           1024: { slidesPerView: 3},
           1280: { slidesPerView: 3.8},
           1440: { slidesPerView: 4.4},
-          1536: { slidesPerView: 5.4},
+          1536: { slidesPerView: 5.8},
           1920: { slidesPerView: 6.5 },
           2560: { slidesPerView: 7 },
         }"

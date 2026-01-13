@@ -39,14 +39,14 @@ onMounted(() => {
 
 <template>
   <div
-    class="bg-[#0f0f0f] xl2:w-67 xl:w-71 lg:w-75 md2:w-108 md:w-89 sm2:w-95 xs2:w-61 w-full
+    class="bg-[#0f0f0f] xl3:w-86 xl2:w-67 xl:w-71 lg:w-75 md2:w-108 md:w-89 sm2:w-95 xs2:w-61 w-full
            lg:h-72 md2:h-100 md:h-86 sm2:h-89 sm:h-77 xs2:h-63 h-68
            rounded-sm flex flex-col transition-transform duration-300 hover:scale-102
            items-stretch group"
   >
     <!-- Header -->
     <div class="h-12 flex items-center justify-between px-3">
-      <CodeBracketIcon class="md:w-10 md:h-10 w-5 h-5 text-sky-500" />
+      <CodeBracketIcon class="md:w-10 md:h-10 w-10 h-10 text-sky-500" />
 
       <div class="flex items-center gap-2">
         <button
@@ -54,18 +54,17 @@ onMounted(() => {
           @click="emit('removeFromFavourites')"
           class="text-red-500 rounded-full p-2 hover:cursor-pointer transition"
         >
-          <HeartSolid class="md:w-7 md:h-10 w-4 h-4" />
+          <HeartSolid class="w-7 h-10" />
         </button>
         <button
           v-else
           @click="emit('addToFavourite')"
           class="text-gray-200 p-2 hover:text-red-500 rounded-full hover:cursor-pointer transition"
         >
-          <HeartOutline class="md:w-7 md:h-10 w-4 h-4" />
+          <HeartOutline class="w-7 h-10" />
         </button>
       </div>
     </div>
-
     <!-- Body -->
     <div class="flex-1 min-h-0 px-3 py-2 overflow-hidden text-left">
       <template v-if="commitLoading">
@@ -102,9 +101,9 @@ onMounted(() => {
       <template v-else>
         <button
           @click="emit('viewCommitDetails', props.repo, props.sha)"
-          class="bg-sky-500 text-white rounded-full md:p-2 p-1 hover:cursor-pointer"
+          class="bg-sky-500 text-white rounded-full p-2 hover:cursor-pointer"
         >
-          <ArrowUpRightIcon class="md:w-6 md:h-6 w-3 h-3" />
+          <ArrowUpRightIcon class="w-6 h-6" />
         </button>
       </template>
     </div>

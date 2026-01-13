@@ -100,7 +100,7 @@
                 <div class="flex flex-wrap xl2:gap-5 xl:gap-4.5 md:gap-3 sm2:gap-4 gap-3 w-full justify-start">
                   <!-- Otherwise render real commits -->
                   <template v-if="githubStore.commits.length">
-                    <div v-for="commit in sortedCommits" :key="commit.sha">
+                    <div v-for="commit in sortedCommits" :key="commit.sha" class="md:w-auto xs2:w-auto w-full">
                       <CommitCard
                         :message="commit.commit.message"
                         :name="commit.commit.author.name"
